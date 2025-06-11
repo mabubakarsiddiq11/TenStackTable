@@ -4,6 +4,7 @@ import {
   getCoreRowModel,
   useReactTable,
   getFilteredRowModel,
+  getSortedRowModel,
 } from "@tanstack/react-table";
 import mockData from "./MockData.json";
 import { columns } from "./Columns";
@@ -12,16 +13,26 @@ import React, { useState } from "react";
 function BasicTable() {
   const finalData = React.useMemo(() => mockData, []);
   const FinalColumns = React.useMemo(() => columns, []);
+
+  // Filter State
   const [filtering, setFiltering] = useState("");
+  // Sorting State
+  const [sorting, setSorting] = useState([]);
 
   const tableInstance = useReactTable({
     data: finalData,
     columns: FinalColumns,
     getCoreRowModel: getCoreRowModel(),
+    // Filter Manage
     getFilteredRowModel: getFilteredRowModel(),
     onGlobalFilterChange: setFiltering,
+    // Sorting Manage
+    getSortedRowModel: getSortedRowModel(),
+    onSortingChange: setSorting,
+
     state: {
       globalFilter: filtering,
+      sorting,
     },
   });
 
@@ -29,7 +40,7 @@ function BasicTable() {
 
   return (
     <div>
-       <input
+      <input
         type="text"
         placeholder="Search..."
         value={filtering}
@@ -50,6 +61,12 @@ function BasicTable() {
                     header.column.columnDef.header,
                     header.getContext()
                   )}
+                  {/* Add This Sorting Method */}
+                  {header.column.getIsSorted() === "asc"
+                    ? " 👆"
+                    : header.column.getIsSorted() === "desc"
+                    ? " 👇"
+                    : ""}
                 </th>
               ))}
             </tr>
