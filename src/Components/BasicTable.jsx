@@ -90,38 +90,49 @@ function BasicTable() {
           ))}
         </tbody>
       </table>
-    {/* Pagination  */}
-    <div>
-    <button
-        onClick={() => tableInstance.setPageIndex(0)}
-        disabled={!tableInstance.getCanPreviousPage()}
-      >
-        {"<<"}
-      </button>
-      <button
-        onClick={() => tableInstance.previousPage()}
-        disabled={!tableInstance.getCanPreviousPage()}
-      >
-        {"Pre"}
-      </button>
-      <button
-        onClick={() => tableInstance.nextPage()}
-        disabled={!tableInstance.getCanNextPage()}
-      >
-        {"Next"}
-      </button>
-      <button
-        onClick={() =>
-          tableInstance.setPageIndex(tableInstance.getPageCount() - 1)
-        }
-        disabled={!tableInstance.getCanNextPage()}
-      >
-        {">>"}
-      </button>
-      <h4>
-        You are on Page No {tableInstance.options.state.pagination.pageIndex}
-      </h4>
-    </div>
+      {/* Pagination  */}
+      <div>
+        <button
+          onClick={() => tableInstance.setPageIndex(0)}
+          disabled={!tableInstance.getCanPreviousPage()}
+        >
+          {"<<"}
+        </button>
+        <button
+          onClick={() => tableInstance.previousPage()}
+          disabled={!tableInstance.getCanPreviousPage()}
+        >
+          {"Pre"}
+        </button>
+        <button
+          onClick={() => tableInstance.nextPage()}
+          disabled={!tableInstance.getCanNextPage()}
+        >
+          {"Next"}
+        </button>
+        <button
+          onClick={() =>
+            tableInstance.setPageIndex(tableInstance.getPageCount() - 1)
+          }
+          disabled={!tableInstance.getCanNextPage()}
+        >
+          {">>"}
+        </button>
+        <h4>
+          You are on Page No {tableInstance.options.state.pagination.pageIndex}
+        </h4>
+      </div>
+
+      <hr />
+      <div>
+        {/* Add This Searching Page */}
+        <p>Searching Page</p>
+        <input
+          type="text"
+          defaultValue={tableInstance.options.state.pagination.pageIndex}
+          onChange={(e) => tableInstance.setPageIndex(e.target.value)}
+        />
+      </div>
     </div>
   );
 }
