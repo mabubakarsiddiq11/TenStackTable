@@ -5,6 +5,7 @@ import {
   useReactTable,
   getFilteredRowModel,
   getSortedRowModel,
+  getPaginationRowModel,
 } from "@tanstack/react-table";
 import mockData from "./MockData.json";
 import { columns } from "./Columns";
@@ -29,6 +30,8 @@ function BasicTable() {
     // Sorting Manage
     getSortedRowModel: getSortedRowModel(),
     onSortingChange: setSorting,
+    // Pagination
+    getPaginationRowModel: getPaginationRowModel(),
 
     state: {
       globalFilter: filtering,
@@ -87,6 +90,38 @@ function BasicTable() {
           ))}
         </tbody>
       </table>
+    {/* Pagination  */}
+    <div>
+    <button
+        onClick={() => tableInstance.setPageIndex(0)}
+        disabled={!tableInstance.getCanPreviousPage()}
+      >
+        {"<<"}
+      </button>
+      <button
+        onClick={() => tableInstance.previousPage()}
+        disabled={!tableInstance.getCanPreviousPage()}
+      >
+        {"Pre"}
+      </button>
+      <button
+        onClick={() => tableInstance.nextPage()}
+        disabled={!tableInstance.getCanNextPage()}
+      >
+        {"Next"}
+      </button>
+      <button
+        onClick={() =>
+          tableInstance.setPageIndex(tableInstance.getPageCount() - 1)
+        }
+        disabled={!tableInstance.getCanNextPage()}
+      >
+        {">>"}
+      </button>
+      <h4>
+        You are on Page No {tableInstance.options.state.pagination.pageIndex}
+      </h4>
+    </div>
     </div>
   );
 }
