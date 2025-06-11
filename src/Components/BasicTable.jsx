@@ -125,13 +125,29 @@ function BasicTable() {
 
       <hr />
       <div>
-        {/* Add This Searching Page */}
+        {/*  Searching Page */}
         <p>Searching Page</p>
         <input
           type="text"
           defaultValue={tableInstance.options.state.pagination.pageIndex}
           onChange={(e) => tableInstance.setPageIndex(e.target.value)}
         />
+        {/*  Page Size Adjust */}
+        <p>
+          Current Page Size {tableInstance.options.state.pagination.pageSize}
+        </p>
+        <select
+          onChange={(e) => tableInstance.setPageSize(e.target.value)}
+          value={tableInstance.options.state.pagination.pageSize}
+        >
+          {[10, 20, 25].map((pageSizeEl) => {
+            return (
+              <option value={pageSizeEl} key={pageSizeEl}>
+                {pageSizeEl}
+              </option>
+            );
+          })}
+        </select>
       </div>
     </div>
   );
